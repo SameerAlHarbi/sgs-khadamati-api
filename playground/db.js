@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../src/util/database');
 const chalk = require('chalk');
+const date = require('../src/util/date');
 
 console.log(chalk.blue.inverse('Start Testing'));
 
@@ -14,6 +15,12 @@ testConnection = async () => {
     }
 }
 
-(async function() {
-    await testConnection();
-})();
+// (async function() {
+//     await testConnection();
+// })();
+
+validateData = (data) => {
+    console.log(isNaN(data.date));
+}
+
+validateData({ id: 0});
