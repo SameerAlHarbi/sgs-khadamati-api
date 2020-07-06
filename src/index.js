@@ -5,6 +5,7 @@ const sequelize = require('./util/database');
 const auth = require('./middleware/auth.middleware');
 const employeesRouter = require('./routers/employees.router');
 const vacationsRouter = require('./routers/vacations.router');
+const errorController = require('./controllers/error.controller');
 
 require('./models/vacation-request.model');
 
@@ -15,6 +16,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 app.use('/employees', auth, employeesRouter);
 app.use('/vacations', auth, vacationsRouter);
+
+app.use(errorController.get404);
+
+//This middleware will be called directly whene ever we call next(Error)
+app.use((error, req, res, next) => {
+
+});
 
 sequelize
     // .sync({force: true}).then(result => {
