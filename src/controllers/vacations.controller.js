@@ -1,5 +1,4 @@
 const vacationsManager = require('../managers/vacations.manager');
-const VacationRequest = require('../models/vacation-request.model');
 const dateUtil = require('../util/date');
 
 exports.getAllVacations = async (req, res) => {
@@ -21,16 +20,19 @@ exports.getAllVacations = async (req, res) => {
 
     try {
 
-        const results = await vacationsManager.getAllVacations(
-            employeesIdsCollection, 
-            fromDateObject, 
-            toDateObject,
-            registerDateObject,
-            vacationsTypesIdsCollection, 
-            lang);
+        const results = await vacationsManager
+            .getAllVacations(
+                employeesIdsCollection, 
+                fromDateObject, 
+                toDateObject,
+                registerDateObject,
+                vacationsTypesIdsCollection, 
+                lang);
             
         res.send(results);
+
     } catch (e) {
+        
         res.status(500).send();
     }
 }
