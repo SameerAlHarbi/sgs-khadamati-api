@@ -17,12 +17,14 @@ app.use(express.json());
 app.use('/employees', auth, employeesRouter);
 app.use('/vacations', auth, vacationsRouter);
 
+// app.use('/500', errorController.get500);
 app.use(errorController.get404);
 
 //This middleware will be called directly whene ever we call next(Error)
-app.use((error, req, res, next) => {
-
-});
+// app.use((error, req, res, next) => {
+//     console.log(error);
+//     return res.status(500).send({ error : error.message });
+// });
 
 sequelize
     // .sync({force: true}).then(result => {

@@ -1,39 +1,39 @@
 const vacationsManager = require('../managers/vacations.manager');
 const dateUtil = require('../util/date');
+const { Error } = require('sequelize/types');
 
-exports.getAllVacations = async (req, res) => {
+exports.getAllVacations = async (req, res, next) => {
    
-    const lang = req.query.lang;
-    const employeesIds = req.query.employeesIds;
-    const fromDateText = req.query.fromDate;
-    const toDateText = req.query.toDate;
-    const registerDateText = req.query.registerDate;
-    const dateFormatText = req.query.dateFormat || dateUtil.defaultTextDateFormat;
-    const vacationsTypesIds = req.query.vacationsTypesIds;
-
-    const fromDateObject = dateUtil.parseDate(fromDateText, dateFormatText);
-    const toDateObject = dateUtil.parseDate(toDateText, dateFormatText);
-    const registerDateObject = dateUtil.parseDate(registerDateText, dateFormatText);
-
-    const employeesIdsCollection = employeesIds ? employeesIds.split(',') : [];
-    const vacationsTypesIdsCollection = vacationsTypesIds ? vacationsTypesIds.split(',') : [];
+    //Query parametars data
+    const lang = req.query.lang || 'A';
+    const employeesIds = req.query.employeesIds ? 
+        req.query.employeesIds.split(',') : [];
+    const vacationsTypesIds = req.query.vacationsTypesIds ? 
+        req.query.vacationsTypesIds.split(',') : [];
+    const dateFormat = req.query.dateFormat || dateUtil.defaultTextDateFormat;
+    const fromDate = dateUtil.parseDate(req.query.fromDate, dateFormat);
+    const toDate = dateUtil.parseDate(req.query.toDate, dateFormat);
+    const registerDate =  dateUtil.parseDate(req.query.registerDate, dateFormat);
 
     try {
-
+        throw new Error('Test Error 1');
+        console.log('error');
         const results = await vacationsManager
             .getAllVacations(
-                employeesIdsCollection, 
-                fromDateObject, 
-                toDateObject,
-                registerDateObject,
-                vacationsTypesIdsCollection, 
+                employeesIds, 
+                fromDate, 
+                toDate,
+                registerDate,
+                vacationsTypesIds, 
                 lang);
             
         res.send(results);
 
     } catch (e) {
-        
-        res.status(500).send();
+        const error = new Error('Test Error 2');
+        error.httpStatusCode = 500;
+        return next(error);
+        // res.status(500).send();
     }
 }
 
