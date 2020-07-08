@@ -1,6 +1,5 @@
 const vacationsManager = require('../managers/vacations.manager');
 const dateUtil = require('../util/date');
-const { Error } = require('sequelize/types');
 
 exports.getAllVacations = async (req, res, next) => {
    
@@ -16,8 +15,6 @@ exports.getAllVacations = async (req, res, next) => {
     const registerDate =  dateUtil.parseDate(req.query.registerDate, dateFormat);
 
     try {
-        throw new Error('Test Error 1');
-        console.log('error');
         const results = await vacationsManager
             .getAllVacations(
                 employeesIds, 
@@ -30,10 +27,8 @@ exports.getAllVacations = async (req, res, next) => {
         res.send(results);
 
     } catch (e) {
-        const error = new Error('Test Error 2');
-        error.httpStatusCode = 500;
-        return next(error);
-        // res.status(500).send();
+        e.httpStatusCode = 500;
+        return next(e);
     }
 }
 

@@ -27,8 +27,8 @@ exports.getAllVacations = async (
 
         const responseData = await erpClient.getErpData('vacations', searchQuery);
         return responseData;
+
     } catch(e) {
-        console.log(e);
         throw e;
     }
 }

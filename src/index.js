@@ -1,12 +1,18 @@
+//Packeges
 const express = require('express');
 const bodyParser = require('body-parser');
 const chalk = require('chalk');
-const sequelize = require('./util/database');
+
+//Middlewares
 const auth = require('./middleware/auth.middleware');
+
+//Routers
 const employeesRouter = require('./routers/employees.router');
 const vacationsRouter = require('./routers/vacations.router');
 const errorController = require('./controllers/error.controller');
 
+//Utilities
+const sequelize = require('./util/database');
 require('./models/vacation-request.model');
 
 const app = express();
@@ -14,17 +20,17 @@ const port = process.env.PORT;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
+
 app.use('/employees', auth, employeesRouter);
 app.use('/vacations', auth, vacationsRouter);
 
-// app.use('/500', errorController.get500);
+app.use('/500', errorController.get500);
 app.use(errorController.get404);
 
 //This middleware will be called directly whene ever we call next(Error)
-// app.use((error, req, res, next) => {
-//     console.log(error);
-//     return res.status(500).send({ error : error.message });
-// });
+app.use((error, req, res, next) => {
+    return res.status(500).send({ error : error.message });
+});
 
 sequelize
     // .sync({force: true}).then(result => {
@@ -34,5 +40,5 @@ sequelize
         });
     }).catch(err => {
     console.log(err);
-    });
+});
 
