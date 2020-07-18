@@ -1,5 +1,4 @@
 const dateUtil = require('../util/date');
-const fetch = require('node-fetch');
 const erpClient = require('../util/erp-client');
 
 exports.getAllEmployees = async (employeesIds = [],
@@ -23,6 +22,7 @@ exports.getAllEmployees = async (employeesIds = [],
 
         const responseData = await erpClient.getErpData('employees', searchQuery);
         return responseData;
+
     } catch(e) {
         throw e;
     }
@@ -31,6 +31,10 @@ exports.getAllEmployees = async (employeesIds = [],
 exports.getEmployeeById = async (employeeId, lang = 'A') => {
 
     lang = lang.toUpperCase();
+
+    if(isNaN(employeeId)) {
+        throw new error('Invalid employee id !!')
+    }
 
     try {
 
@@ -45,24 +49,29 @@ exports.getEmployeeSalary = async (employeeId,
     fromDate = new Date(), 
     toDate = new Date()) => {
 
-        try {
+    if(isNaN(employeeId)) {
+        throw new error('Invalid employee id !!')
+    }
 
-            const searchQuery = {
-                fromDate: dateUtil.formatDate(fromDate, dateUtil.defaultTextDateFormat),
-                toDate: dateUtil.formatDate(toDate, dateUtil.defaultTextDateFormat),
-                dateFormat: dateUtil.defaultTextDateFormat
-            }
+    try {
 
-            if(!employeeId || isNaN(employeeId)) {
-                throw new Error('employee id required!')
-            }
-
-            const responseData = await erpClient.getErpData(`employees/${employeeId}/salary`, searchQuery);
-            return responseData;
-
-        } catch(e) {
-            throw e;
+        const searchQuery = {
+            fromDate: dateUtil.formatDate(fromDate, dateUtil.defaultTextDateFormat),
+            toDate: dateUtil.formatDate(toDate, dateUtil.defaultTextDateFormat),
+            dateFormat: dateUtil.defaultTextDateFormat
         }
+
+        if(!employeeId || isNaN(employeeId)) {
+            throw new Error('employee id required!')
+        }
+
+        const responseData = await erpClient.getErpData(`employees/${employeeId}/salary`, searchQuery);
+        return responseData;
+
+    } catch(e) {
+        throw e;
+    }
+
 }
 
 exports.getEmployeeManager = async (employeeId,
@@ -70,23 +79,25 @@ exports.getEmployeeManager = async (employeeId,
     toDate = new Date(),
     lang = 'A') => {
 
-        try {
+    lang = lang.toUpperCase();
 
-            const searchQuery = {
-                fromDate: dateUtil.formatDate(fromDate, dateUtil.defaultTextDateFormat),
-                toDate: dateUtil.formatDate(toDate, dateUtil.defaultTextDateFormat),
-                dateFormat: dateUtil.defaultTextDateFormat,
-                lang
-            }
-
-            if(!employeeId || isNaN(employeeId)) {
-                throw new Error('employee id required!')
-            }
-
-            const responseData = await erpClient.getErpData(`employees/${employeeId}/manager`, searchQuery);
-            return responseData;
-
-        } catch(e) {
-            throw e;
-        }
+    if(isNaN(employeeId)) {
+        throw new error('Invalid employee id !!')
     }
+
+    try {
+
+        const searchQuery = {
+            fromDate: dateUtil.formatDate(fromDate, dateUtil.defaultTextDateFormat),
+            toDate: dateUtil.formatDate(toDate, dateUtil.defaultTextDateFormat),
+            dateFormat: dateUtil.defaultTextDateFormat,
+            lang
+        }
+
+        const responseData = await erpClient.getErpData(`employees/${employeeId}/manager`, searchQuery);
+        return responseData;
+
+    } catch(e) {
+        throw e;
+    }
+}

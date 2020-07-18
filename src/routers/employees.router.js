@@ -1,14 +1,25 @@
 const express = require('express');
 const employeesController = require('../controllers/employees.controller');
+const queryUtil = require('../middleware/query-util.middleware');
 
 const Router = express.Router();
 
-Router.get('/', employeesController.getAllEmployees);
-Router.get('/:employeeId', employeesController.getEmployeeById);
-Router.get('/:employeeId/salary', employeesController.getEmployeeSalary);
-Router.get('/:employeeId/manager', employeesController.getEmployeeManager);
-// router.get('/:employeeId/vacations', employeesController.getEmployeeVacations);
-Router.get('/:employeeId/vacations/balances', employeesController.getEmployeeVacationsBalances);
-Router.get('/:employeeId/vacations/balances/summary', employeesController.getEmployeeVacationsBalancesSummaries);
+Router.get('/', 
+    queryUtil.queryParser,
+    employeesController.getAllEmployees);
+
+Router.get('/:id', 
+    queryUtil.validateId, 
+    employeesController.getEmployeeById);
+
+Router.get('/:id/salary', 
+    queryUtil.validateId, 
+    queryUtil.queryParser, 
+    employeesController.getEmployeeSalary);
+
+Router.get('/:id/manager', 
+    queryUtil.validateId, 
+    queryUtil.queryParser, 
+    employeesController.getEmployeeManager);
 
 module.exports = Router;
