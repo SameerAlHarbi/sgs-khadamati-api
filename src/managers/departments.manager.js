@@ -4,7 +4,7 @@ const erpClient = require('../util/erp-client');
 exports.getAllDepartments = async (
     fromDate = new Date(), 
     toDate = new Date(),
-    flatData = false,
+    flat = false,
     lang = 'A') => {
 
         lang = lang.toUpperCase();   
@@ -15,7 +15,7 @@ exports.getAllDepartments = async (
                 fromDate: dateUtil.formatDate(fromDate, dateUtil.defaultTextDateFormat),
                 toDate: dateUtil.formatDate(toDate, dateUtil.defaultTextDateFormat),
                 dateFormat: dateUtil.defaultTextDateFormat,
-                flatData,
+                flat,
                 lang
             };
 
@@ -31,7 +31,7 @@ exports.getDepartmentById = async (
     departmentId, 
     fromDate = new Date(), 
     toDate = new Date(), 
-    childsDepth = -1, 
+    childDepth = -1, 
     lang = 'A') => {
 
         lang = lang.toUpperCase(); 
@@ -46,7 +46,7 @@ exports.getDepartmentById = async (
                 fromDate: dateUtil.formatDate(fromDate, dateUtil.defaultTextDateFormat),
                 toDate: dateUtil.formatDate(toDate, dateUtil.defaultTextDateFormat),
                 dateFormat: dateUtil.defaultTextDateFormat,
-                childsDepth,
+                childDepth,
                 lang
             };
 
@@ -62,8 +62,8 @@ exports.getChildDepartments = async (
     departmentId ,
     fromDate = new Date(), 
     toDate = new Date(),
-    childsDepth = -1, 
-    flatData = false,
+    childDepth = -1, 
+    flat = false,
     lang = 'ِA' )  => {
 
         lang = lang.toUpperCase(); 
@@ -78,8 +78,8 @@ exports.getChildDepartments = async (
                 fromDate: dateUtil.formatDate(fromDate, dateUtil.defaultTextDateFormat),
                 toDate: dateUtil.formatDate(toDate, dateUtil.defaultTextDateFormat),
                 dateFormat: dateUtil.defaultTextDateFormat,
-                childsDepth,
-                flatData,
+                childDepth,
+                flat,
                 lang
             };
 

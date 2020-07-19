@@ -4,7 +4,7 @@ exports.getAllDepartments = async (req, res, next) => {
 
     const fromDate = req.query.fromDate;
     const toDate = req.query.toDate;
-    const flatData = req.query.flat;
+    const flat = req.query.flat ? req.query.flat === 'true' : false;
     const lang = req.query.lang || 'A';
 
     try {
@@ -12,7 +12,7 @@ exports.getAllDepartments = async (req, res, next) => {
         const results =  await departmentsManager.getAllDepartments(
             fromDate, 
             toDate, 
-            flatData, 
+            flat, 
             lang);
 
         return res.json(results);
@@ -60,7 +60,7 @@ exports.getChildDepartments = async (req, res, next) => {
     const fromDate = req.query.fromDate;
     const toDate = req.query.toDate;
     const childDepth = isNaN(req.query.childDepth)  ? -1 : +req.query.childDepth;
-    const flatData = req.query.flat;
+    const flat = req.query.flat;
 
     const lang = req.query.lang || 'A';
 
@@ -71,7 +71,7 @@ exports.getChildDepartments = async (req, res, next) => {
             fromDate, 
             toDate,
             childDepth, 
-            flatData,
+            flat,
             lang);
 
         res.json(results);

@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use('/employees', authMiddleware, employeesRouter);
-app.use('/departmens', authMiddleware, departmentsRouter);
+app.use('/departments', authMiddleware, departmentsRouter);
 app.use('/vacations', authMiddleware, vacationsRouter);
 
 app.use('/500', errorController.get500);
