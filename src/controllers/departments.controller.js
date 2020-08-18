@@ -5,7 +5,7 @@ exports.getAllDepartments = async (req, res, next) => {
     const fromDate = req.query.fromDate;
     const toDate = req.query.toDate;
     const flat = req.query.flat ? req.query.flat === 'true' : false;
-    const lang = req.query.lang || 'A';
+    const lang = req.query.lang;
 
     try {
 
@@ -25,16 +25,16 @@ exports.getAllDepartments = async (req, res, next) => {
 
 exports.getDepartmentById = async (req, res, next) => {
 
-    const departmentId = req.params.id;
+    const id = req.params.id;
     const fromDate = req.query.fromDate;
     const toDate = req.query.toDate;
     const childDepth = isNaN(req.query.childDepth) ? -1 : +req.query.childDepth;
-    const lang = req.query.lang || 'A';
+    const lang = req.query.lang;
 
     try {
 
         const result = await departmentsManager.getDepartmentById(
-            departmentId,
+            id,
             fromDate,
             toDate,
             childDepth,
@@ -56,18 +56,18 @@ exports.getDepartmentById = async (req, res, next) => {
 
 exports.getChildDepartments = async (req, res, next) => {
     
-    const departmentId = req.params.id;
+    const id = req.params.id;
     const fromDate = req.query.fromDate;
     const toDate = req.query.toDate;
     const childDepth = isNaN(req.query.childDepth)  ? -1 : +req.query.childDepth;
     const flat = req.query.flat;
 
-    const lang = req.query.lang || 'A';
+    const lang = req.query.lang;
 
     try {
 
         const results = await departmentsManager.getChildDepartments(
-            departmentId, 
+            id, 
             fromDate, 
             toDate,
             childDepth, 

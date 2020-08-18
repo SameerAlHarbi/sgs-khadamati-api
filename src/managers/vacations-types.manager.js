@@ -7,7 +7,7 @@ exports.getAllVacationsTypes = async (workSystem = 'ALL',lang = 'A') => {
 
     try{
 
-        const responseData = await erpClient.getErpData('vacations/types', {workSystem, lang});
+        const responseData = await erpClient.getData('vacations/types', {workSystem, lang});
         return responseData;
     } catch (e) {
         throw e;

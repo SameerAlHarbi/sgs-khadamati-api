@@ -12,6 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@abujude/sgs-khadamati": "^1.2.5",
     "body-parser": "^1.19.0",
     "chalk": "^4.0.0",
     "date-and-time": "^0.13.1",

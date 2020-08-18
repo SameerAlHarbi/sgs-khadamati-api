@@ -1,19 +1,19 @@
 const express = require('express');
+const { queryMiddleware }= require('@abujude/sgs-khadamati');
 const departmentsController = require('../controllers/departments.controller');
-const queryUtil = require('../middleware/query-util.middleware');
 
 const Router = express.Router();
 
-Router.get('/', 
-    queryUtil.queryParser, 
+Router.get('/',
+    queryMiddleware.parseQuery,
     departmentsController.getAllDepartments);
 
 Router.get('/:id',
-    queryUtil.queryParser,
+    queryMiddleware.parseQuery,
     departmentsController.getDepartmentById);
 
 Router.get('/:id/childs',
-    queryUtil.queryParser,
+    queryMiddleware.parseQuery,
     departmentsController.getChildDepartments);
 
 module.exports = Router;

@@ -1,30 +1,26 @@
 const vacationsManager = require('../managers/vacations.manager');
-const dateUtil = require('../util/date');
 
 exports.getAllVacations = async (req, res, next) => {
-   
-    //Query parametars data
+
+    const ids = req.query.ids;
+    const vacationsTypes = req.query.Types;
+    const fromDate = req.query.fromDate;
+    const toDate = req.query.toDate;
+    const registerFromDate =  req.query.registerFromDate;
+
     const lang = req.query.lang || 'A';
-    const employeesIds = req.query.employeesIds ? 
-        req.query.employeesIds.split(',') : [];
-    const vacationsTypesIds = req.query.vacationsTypesIds ? 
-        req.query.vacationsTypesIds.split(',') : [];
-    const dateFormat = req.query.dateFormat || dateUtil.defaultTextDateFormat;
-    const fromDate = dateUtil.parseDate(req.query.fromDate, dateFormat);
-    const toDate = dateUtil.parseDate(req.query.toDate, dateFormat);
-    const registerDate =  dateUtil.parseDate(req.query.registerDate, dateFormat);
 
     try {
         const results = await vacationsManager
             .getAllVacations(
-                employeesIds, 
+                ids,
                 fromDate, 
                 toDate,
-                registerDate,
-                vacationsTypesIds, 
+                registerFromDate,
+                vacationsTypes, 
                 lang);
             
-        res.send(results);
+        res.json(results);
 
     } catch (e) {
         e.httpStatusCode = 500;

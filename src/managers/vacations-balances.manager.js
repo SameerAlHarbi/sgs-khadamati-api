@@ -1,5 +1,6 @@
 const vacationsTypesManager = require('./vacations-types.manager');
 const dateUtil = require('../util/date');
+const erpClient = require('../util/erp-client');
 
 exports.getAllVacationsBalances = async (employeesIds = [],
      fromDate = new Date(),
@@ -20,7 +21,7 @@ exports.getAllVacationsBalances = async (employeesIds = [],
             lang
         }
 
-        const responseData = await erpClient.getErpData('vacations/balances', searchQuery);
+        const responseData = await erpClient.getData('vacations/balances', searchQuery);
         return responseData;
     } catch(e) {
         throw e;
@@ -45,7 +46,7 @@ exports.getAllVacationsBalancesSummaries = async (
                 lang
             }
     
-            const responseData = await erpClient.getErpData('vacations/balances/summary', searchQuery);
+            const responseData = await erpClient.getData('vacations/balances/summary', searchQuery);
             return responseData;
         } catch (e) {
             throw e;

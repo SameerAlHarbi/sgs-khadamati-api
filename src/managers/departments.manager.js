@@ -1,5 +1,5 @@
-const dateUtil = require('../util/date');
 const erpClient = require('../util/erp-client');
+const { dateUtil } = require('@abujude/sgs-khadamati');
 
 exports.getAllDepartments = async (
     fromDate = new Date(), 
@@ -12,14 +12,14 @@ exports.getAllDepartments = async (
         try {
 
             const searchQuery = {
-                fromDate: dateUtil.formatDate(fromDate, dateUtil.defaultTextDateFormat),
-                toDate: dateUtil.formatDate(toDate, dateUtil.defaultTextDateFormat),
-                dateFormat: dateUtil.defaultTextDateFormat,
+                fromDate: dateUtil.formatDate(fromDate, dateUtil.defaultTextFormat),
+                toDate: dateUtil.formatDate(toDate, dateUtil.defaultTextFormat),
+                dateFormat: dateUtil.defaultTextFormat,
                 flat,
                 lang
             };
 
-            const responseData = await erpClient.getErpData('departments', searchQuery);
+            const responseData = await erpClient.getData('departments', searchQuery);
             return responseData;
 
         } catch(e) {
@@ -43,14 +43,14 @@ exports.getDepartmentById = async (
         try {
 
             const searchQuery = {
-                fromDate: dateUtil.formatDate(fromDate, dateUtil.defaultTextDateFormat),
-                toDate: dateUtil.formatDate(toDate, dateUtil.defaultTextDateFormat),
-                dateFormat: dateUtil.defaultTextDateFormat,
+                fromDate: dateUtil.formatDate(fromDate, dateUtil.defaultTextFormat),
+                toDate: dateUtil.formatDate(toDate, dateUtil.defaultTextFormat),
+                dateFormat: dateUtil.defaultTextFormat,
                 childDepth,
                 lang
             };
 
-            const responseData = await erpClient.getErpData(`departments/${departmentId}`, searchQuery);
+            const responseData = await erpClient.getData(`departments/${departmentId}`, searchQuery);
             return responseData;
 
         } catch(e) {
@@ -75,15 +75,15 @@ exports.getChildDepartments = async (
         try {
 
             const searchQuery = {
-                fromDate: dateUtil.formatDate(fromDate, dateUtil.defaultTextDateFormat),
-                toDate: dateUtil.formatDate(toDate, dateUtil.defaultTextDateFormat),
-                dateFormat: dateUtil.defaultTextDateFormat,
+                fromDate: dateUtil.formatDate(fromDate, dateUtil.defaultTextFormat),
+                toDate: dateUtil.formatDate(toDate, dateUtil.defaultTextFormat),
+                dateFormat: dateUtil.defaultTextFormat,
                 childDepth,
                 flat,
                 lang
             };
 
-            const responseData = await erpClient.getErpData(`departments/${departmentId}/childs`, searchQuery);
+            const responseData = await erpClient.getData(`departments/${departmentId}/childs`, searchQuery);
             return responseData;
 
         } catch(e) {

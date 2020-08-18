@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const chalk = require('chalk');
 
 //Middlewares
-const authMiddleware = require('./middleware/auth.middleware');
+const authMiddleware = require('./middlewares/auth.middleware');
 
 //Routers
 const employeesRouter = require('./routers/employees.router');
@@ -16,6 +16,7 @@ const errorController = require('./controllers/error.controller');
 const sequelize = require('./util/database');
 require('./models/vacation-request.model');
 
+//Express server
 const app = express();
 const port = process.env.PORT;
 
@@ -43,6 +44,7 @@ sequelize
         console.log(chalk.green.inverse(`SGS KHADAMATI API SERVER IS UP AND RUNNING ON PORT ${port}`));
         });
     }).catch(err => {
+    console.log(chalk.red.inverse('Db Error!'));
     console.error(err);
 });
 

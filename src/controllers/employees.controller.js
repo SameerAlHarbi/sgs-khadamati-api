@@ -2,17 +2,17 @@ const employeesManager = require('../managers/employees.manager');
 
 exports.getAllEmployees = async (req, res, next) => {
 
-    const employeesIds = req.query.employeesIds;
+    const ids = req.query.ids;
     const fromDate = req.query.fromDate;
     const toDate = req.query.toDate;
     const status = req.query.status;
-    const lang = req.query.lang || 'A';
+    const lang = req.query.lang;
 
     try {
 
         const results = await employeesManager
             .getAllEmployees(
-                employeesIds,
+                ids,
                 fromDate,
                 toDate,
                 status, 
@@ -28,13 +28,13 @@ exports.getAllEmployees = async (req, res, next) => {
 
 exports.getEmployeeById = async (req, res, next) => {
     
-    const employeeId = req.params.id;
-    const lang = req.query.lang || 'A';
+    const id = req.params.id;
+    const lang = req.query.lang;
 
     try {
 
         const result = await employeesManager
-            .getEmployeeById(employeeId, lang);
+            .getEmployeeById(id, lang);
 
         if(!result) {
             const error = new Error();
@@ -52,14 +52,14 @@ exports.getEmployeeById = async (req, res, next) => {
 
 exports.getEmployeeSalary = async (req, res, next) => {
 
-    const employeeId = req.params.id;
+    const id = req.params.id;
     const fromDate = req.query.fromDate;
     const toDate = req.query.toDate;
 
     try {
 
         const result = await employeesManager.getEmployeeSalary(
-            employeeId, 
+            id, 
             fromDate, 
             toDate);
 
@@ -79,15 +79,15 @@ exports.getEmployeeSalary = async (req, res, next) => {
 
 exports.getEmployeeManager = async (req, res, next) => {
 
-    const employeeId = req.params.id;
+    const id = req.params.id;
     const fromDate = req.query.fromDate;
     const toDate = req.query.toDate;
-    const lang = req.query.lang || 'A';
+    const lang = req.query.lang;
 
     try {
 
         const result = await employeesManager.getEmployeeManager(
-            employeeId, 
+            id, 
             fromDate, 
             toDate, 
             lang);

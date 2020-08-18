@@ -41,9 +41,7 @@ exports.convertFormat = (dateText, dateFormat, newFormat) => {
 }
 
 exports.calcDaysDuration = (startDateObject, endDateObject) => {
-
     return date.subtract(endDateObject, startDateObject).toDays() ;
-
 }
 
 exports.addDays = (dateObject ,daysCount) => {
