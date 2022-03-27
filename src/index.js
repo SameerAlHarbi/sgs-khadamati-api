@@ -50,27 +50,45 @@ app.use((error, req, res, next) => {
 });
 
 const port = process.env.PORT || 7000;
-sequelize
-    // .sync({force: true}).then(result => {
-    .sync().then(result => {
-        app.listen(port, () => {
-            switch(process.env.SAP_SERVER_TYPE)
-            {
-                case 'DEVELOPMENT':
-                    console.log(chalk.yellowBright
-                        .inverse(`SGS KHADAMATI API ${process.env.SAP_SERVER_TYPE} SERVER IS UP AND RUNNING ON PORT ${port}`));
-                    break;
-                case 'QUALITY':
-                    console.log(chalk.cyan
-                        .inverse(`SGS KHADAMATI API ${process.env.SAP_SERVER_TYPE} SERVER IS UP AND RUNNING ON PORT ${port}`));
-                    break;
-                default :
-                     console.log(chalk.greenBright
-                        .inverse(`SGS KHADAMATI API ${process.env.SAP_SERVER_TYPE} SERVER IS UP AND RUNNING ON PORT ${port}`));
-            }
-        });
-    }).catch(error => {
-    console.log(chalk.red.inverse('Db Error!'));
-    console.error(error);
+
+app.listen(port, () => {
+    switch(process.env.SAP_SERVER_TYPE)
+    {
+        case 'DEVELOPMENT':
+            console.log(chalk.yellowBright
+                .inverse(`SGS KHADAMATI API ${process.env.SAP_SERVER_TYPE} SERVER IS UP AND RUNNING ON PORT ${port}`));
+            break;
+        case 'QUALITY':
+            console.log(chalk.cyan
+                .inverse(`SGS KHADAMATI API ${process.env.SAP_SERVER_TYPE} SERVER IS UP AND RUNNING ON PORT ${port}`));
+            break;
+        default :
+             console.log(chalk.greenBright
+                .inverse(`SGS KHADAMATI API ${process.env.SAP_SERVER_TYPE} SERVER IS UP AND RUNNING ON PORT ${port}`));
+    }
 });
+
+// sequelize
+//     // .sync({force: true}).then(result => {
+//     .sync().then(result => {
+//         app.listen(port, () => {
+//             switch(process.env.SAP_SERVER_TYPE)
+//             {
+//                 case 'DEVELOPMENT':
+//                     console.log(chalk.yellowBright
+//                         .inverse(`SGS KHADAMATI API ${process.env.SAP_SERVER_TYPE} SERVER IS UP AND RUNNING ON PORT ${port}`));
+//                     break;
+//                 case 'QUALITY':
+//                     console.log(chalk.cyan
+//                         .inverse(`SGS KHADAMATI API ${process.env.SAP_SERVER_TYPE} SERVER IS UP AND RUNNING ON PORT ${port}`));
+//                     break;
+//                 default :
+//                      console.log(chalk.greenBright
+//                         .inverse(`SGS KHADAMATI API ${process.env.SAP_SERVER_TYPE} SERVER IS UP AND RUNNING ON PORT ${port}`));
+//             }
+//         });
+//     }).catch(error => {
+//     console.log(chalk.red.inverse('Db Error!'));
+//     console.error(error);
+// });
 
